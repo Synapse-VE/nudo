@@ -15,12 +15,13 @@ import ls from "./ls.js";
 import search from "./search.js";
 import stats from "./stats.js";
 import streak from "./streak.js";
+import today from "./today.js";
 import tag from "./tag.js";
 import restore from "./restore.js";
 import rm from "./rm.js";
 import show from "./show.js";
 import version from "./version.js";
 
-export const builtins = [add, completion, config, demo, doctor, edit, exportCommand, graph, help, importCommand, link, ls, restore, rm, search, show, stats, streak, tag, version];
+export const builtins = [add, completion, config, demo, doctor, edit, exportCommand, graph, help, importCommand, link, ls, restore, rm, search, show, stats, streak, tag, today, version];
 
 for (const command of builtins) register(command);
