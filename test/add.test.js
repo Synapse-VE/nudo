@@ -63,3 +63,20 @@ test("add falla con texto vacio o metadato invalido", async () => {
   assert.equal(meta.code, 2);
   assert.match(meta.stderr, /metadato invalido/);
 });
+
+test("add --hashtags convierte las almohadillas del texto en etiquetas", async () => {
+  const home = tempHome();
+  await nudo(home, ["add", "probar #nudo contra #CI mañana", "-t", "ideas", "--hashtags"]);
+
+  const [event] = events(home);
+  assert.deepEqual(event.tags, ["ideas", "nudo", "ci"]);
+});
+
+test("sin --hashtags las almohadillas quedan en el texto", async () => {
+  const home = tempHome();
+  await nudo(home, ["add", "probar #nudo"]);
+
+  const [event] = events(home);
+  assert.deepEqual(event.tags, []);
+  assert.match(event.text, /#nudo/);
+});

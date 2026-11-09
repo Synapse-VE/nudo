@@ -20,6 +20,7 @@ nudo add <texto...> [-t etiqueta]... [-m clave=valor]... [--at <cuando>]
 | `-t, --tag <etiqueta>` | Etiqueta (repetible) |
 | `-m, --meta <clave=valor>` | Metadato (repetible) |
 | `--at <cuando>` | Fecha de la nota (por defecto, ahora) |
+| `--hashtags` | Convierte los `#texto` de la nota en etiquetas |
 
 Sin argumentos, o con `-`, lee la nota de la entrada estandar. Imprime el id.
 
