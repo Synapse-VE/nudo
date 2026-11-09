@@ -62,3 +62,35 @@ export function toMarkdown(notes, now = Date.now()) {
 
   return `${lines.join("\n").trimEnd()}\n`;
 }
+
+/**
+ * Escapa un valor para CSV (comillas dobles, comas y saltos de linea).
+ * @param {unknown} value
+ * @returns {string}
+ */
+function csvCell(value) {
+  const text = String(value ?? "");
+  if (/[",\n\r]/.test(text)) {
+    return `"${text.replaceAll('"', '""')}"`;
+  }
+  return text;
+}
+
+/**
+ * Convierte notas a CSV con encabezado.
+ * @param {object[]} notes
+ * @returns {string}
+ */
+export function toCsv(notes) {
+  const header = ["id", "fecha", "hora", "etiquetas", "texto", "meta"];
+  const rows = notes.map((note) => [
+    note.id,
+    formatDay(note.ts),
+    formatClock(note.ts),
+    note.tags.join(" "),
+    note.text,
+    Object.entries(note.meta).map(([key, value]) => `${key}=${value}`).join("; "),
+  ]);
+
+  return [header, ...rows].map((row) => row.map(csvCell).join(",")).join("\n") + "\n";
+}
