@@ -65,6 +65,12 @@ function apply(notes, event) {
       return;
     }
 
+    case "restore": {
+      if (!existing) return;
+      existing.deleted = false;
+      return;
+    }
+
     case "link": {
       if (!existing || typeof event.to !== "string" || event.to === existing.id) return;
       if (existing.links.some((link) => link.to === event.to)) return;
