@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { homedir } from "node:os";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { after, test } from "node:test";
@@ -26,7 +27,8 @@ after(() => {
 
 test("homeDir respeta NUDO_HOME", () => {
   assert.equal(homeDir({ NUDO_HOME: "/tmp/x" }), "/tmp/x");
-  assert.equal(homeDir({ NUDO_HOME: "  " }), join(homeDir({}), ".nudo").replace(/\.nudo$/, ".nudo"));
+  assert.equal(homeDir({ NUDO_HOME: "   " }), homeDir({}));
+  assert.equal(homeDir({}), join(homedir(), ".nudo"));
 });
 
 test("logPath cuelga de homeDir", () => {
