@@ -10,8 +10,8 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test",
-    "check": "node --check bin/nudo.js && node --test"
+    "test": "node --test test/*.test.js",
+    "check": "node --check bin/nudo.js && node --test test/*.test.js"
   },
   "files": [
     "bin",
