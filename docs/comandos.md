@@ -33,7 +33,7 @@ $ nudo add "nota de ayer" --at 2026-11-08T20:00
 ## ls
 
 ```
-nudo ls [-t etiqueta]... [--since <cuando>] [--until <cuando>] [--limit N] [--reverse] [--json]
+nudo ls [-t etiqueta]... [--since <cuando>] [--until <cuando>] [--limit N] [--reverse] [--group] [--json]
 ```
 
 | Opcion | Descripcion |
@@ -43,6 +43,7 @@ nudo ls [-t etiqueta]... [--since <cuando>] [--until <cuando>] [--limit N] [--re
 | `--until <cuando>` | Hasta esa fecha |
 | `--limit N` | Cuantas mostrar (por defecto, `limit` de la configuracion) |
 | `--reverse` | De la mas vieja a la mas nueva |
+| `--group` | Agrupa la salida por dia |
 | `--json` | Salida JSON |
 
 ## search

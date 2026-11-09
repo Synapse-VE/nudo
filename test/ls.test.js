@@ -63,3 +63,15 @@ test("ls avisa cuando no hay notas y no falla con fecha invalida", async () => {
   assert.equal(bad.code, 2);
   assert.match(bad.stderr, /fecha invalida/);
 });
+
+test("ls --group separa por dia con encabezados", async () => {
+  const home = tempHome();
+  await seed(home);
+
+  const { stdout } = await nudo(home, ["ls", "--group"]);
+  const lines = stdout.trim().split("\n");
+  assert.match(lines[0], /^2026-11-03$/);
+  assert.match(lines[1], /otra nota suelta/);
+  assert.match(stdout, /2026-11-02/);
+  assert.match(stdout, /2026-11-01/);
+});
