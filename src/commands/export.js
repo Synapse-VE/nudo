@@ -1,18 +1,18 @@
 import { writeFileSync } from "node:fs";
 
 import { UsageError } from "../errors.js";
-import { toMarkdown } from "../export.js";
+import { toCsv, toMarkdown } from "../export.js";
 import { readEvents } from "../log.js";
 import { liveNotes } from "../model.js";
 import { filterNotes } from "../query.js";
 import { parseWhen } from "../time.js";
 
-const FORMATS = ["md", "json"];
+const FORMATS = ["md", "csv", "json"];
 
 export default {
   name: "export",
-  summary: "Exporta las notas a markdown o json",
-  usage: "nudo export [--format md|json] [--out <archivo>] [-t etiqueta]... [--since <cuando>]",
+  summary: "Exporta las notas a markdown, csv o json",
+  usage: "nudo export [--format md|csv|json] [--out <archivo>] [-t etiqueta]... [--since <cuando>]",
   options: {
     format: { type: "string", default: "md" },
     out: { type: "string" },
@@ -38,7 +38,11 @@ export default {
 
     const notes = filterNotes(liveNotes(readEvents()), { ...filters, reverse: true });
     const output =
-      options.format === "json" ? `${JSON.stringify(notes, null, 2)}\n` : toMarkdown(notes);
+      options.format === "json"
+        ? `${JSON.stringify(notes, null, 2)}\n`
+        : options.format === "csv"
+          ? toCsv(notes)
+          : toMarkdown(notes);
 
     if (options.out) {
       writeFileSync(options.out, output);

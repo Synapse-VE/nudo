@@ -55,6 +55,18 @@ test("export --format json devuelve las notas", async () => {
   assert.equal(notes[0].text, "primera");
 });
 
+test("export csv arma filas con encabezado y escapa comillas", async () => {
+  const home = tempHome();
+  await nudo(home, ["add", 'dijo "hola", y se fue', "-t", "frases", "--at", "2026-11-01T09:00:00"]);
+
+  const { stdout } = await nudo(home, ["export", "--format", "csv"]);
+  const lines = stdout.trim().split("\n");
+
+  assert.equal(lines[0], "id,fecha,hora,etiquetas,texto,meta");
+  assert.match(lines[1], /,2026-11-01,09:00,frases,"dijo ""hola"", y se fue",/);
+  assert.equal(lines.length, 2);
+});
+
 test("export rechaza formatos desconocidos", async () => {
   const home = tempHome();
   const { code } = await nudo(home, ["export", "--format", "pdf"]);
