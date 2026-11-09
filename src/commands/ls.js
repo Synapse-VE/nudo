@@ -1,9 +1,10 @@
+import { readConfig } from "../config.js";
 import { UsageError } from "../errors.js";
 import { readEvents } from "../log.js";
 import { liveNotes } from "../model.js";
 import { noteList } from "../output.js";
 import { filterNotes } from "../query.js";
-import { style, useColor } from "../render.js";
+import { styles } from "../theme.js";
 import { parseWhen } from "../time.js";
 
 export default {
@@ -14,7 +15,7 @@ export default {
     tag: { type: "multi", short: "t" },
     since: { type: "string" },
     until: { type: "string" },
-    limit: { type: "number", default: 20 },
+    limit: { type: "number" },
     reverse: { type: "boolean" },
     json: { type: "boolean" },
   },
@@ -23,7 +24,7 @@ export default {
     /** @type {any} */
     const filters = {
       tags: options.tag,
-      limit: options.limit,
+      limit: options.limit ?? readConfig().limit,
       reverse: options.reverse,
     };
 
@@ -50,7 +51,7 @@ export default {
 
     console.log(
       noteList(result, {
-        styles: style(useColor()),
+        styles: styles(),
         columns: process.stdout.columns,
       }),
     );

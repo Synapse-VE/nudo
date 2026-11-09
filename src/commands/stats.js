@@ -1,6 +1,7 @@
 import { readEvents } from "../log.js";
 import { fold } from "../model.js";
-import { bar, style, table, useColor } from "../render.js";
+import { bar, table } from "../render.js";
+import { styles } from "../theme.js";
 import { countByTag, dailySeries, summary } from "../stats.js";
 
 const INTENSITY = ["·", "░", "▒", "▓", "█"];
@@ -34,7 +35,7 @@ export default {
     const notes = fold(readEvents());
     const live = notes.filter((note) => !note.deleted);
     const totals = summary(notes);
-    const s = style(useColor());
+    const s = styles();
 
     if (options.by === "day") {
       const series = dailySeries(live, { days: options.days });
