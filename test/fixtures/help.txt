@@ -1,0 +1,29 @@
+nudo - tu memoria externa
+
+Uso:
+  nudo <comando> [opciones]
+
+Comandos:
+  add         Agrega una nota
+  completion  Imprime el script de autocompletado para tu shell
+  config      Lee y escribe la configuracion
+  demo        Carga notas de ejemplo para probar el registro
+  doctor      Revisa la salud del registro
+  edit        Reemplaza el texto de una nota
+  export      Exporta las notas a markdown, csv o json
+  graph       Muestra los enlaces entre notas
+  help        Muestra la ayuda general o la de un comando
+  import      Importa notas desde JSONL, JSON o markdown
+  link        Enlaza dos notas (y deshace el enlace con --remove)
+  ls          Lista las notas, de la mas reciente a la mas vieja
+  restore     Recupera una nota borrada
+  rm          Borra una nota (logico por defecto, definitivo con --hard)
+  search      Busca notas por texto o etiqueta
+  show        Muestra una nota completa por id (o prefijo del id)
+  stats       Cuenta notas por etiqueta o por dia
+  streak      Muestra la racha de dias seguidos con notas
+  tag         Agrega o quita etiquetas de una nota
+  today       Muestra las notas de hoy
+  version     Muestra la version instalada
+
+Ejecuta "nudo <comando> --help" para ver las opciones de un comando.
