@@ -47,8 +47,13 @@ nudo ls [-t etiqueta]... [--since <cuando>] [--until <cuando>] [--limit N] [--re
 ## search
 
 ```
-nudo search <terminos...> [-t etiqueta]... [--since <cuando>] [--until <cuando>] [--limit N] [--json]
+nudo search <terminos...> [-t etiqueta]... [--since <cuando>] [--until <cuando>] [--limit N] [--sort relevance|date] [--json]
 ```
+
+| Opcion | Descripcion |
+| --- | --- |
+| `--sort relevance` | Ordena por relevancia y recencia (por defecto) |
+| `--sort date` | Ordena por fecha, de la mas nueva a la mas vieja |
 
 Todos los terminos deben aparecer; se aceptan prefijos. Ignora acentos y
 mayusculas. Ordena por relevancia y, en caso de empate, por fecha.
