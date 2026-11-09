@@ -7,8 +7,10 @@ export default {
   name: "show",
   summary: "Muestra una nota completa por id (o prefijo del id)",
   usage: "nudo show <id>",
-  options: {},
-  run({ args }) {
+  options: {
+    json: { type: "boolean" },
+  },
+  run({ options, args }) {
     if (!args[0]) {
       console.error("falta el id de la nota");
       return 1;
@@ -26,6 +28,12 @@ export default {
     }
 
     const [note] = matches;
+
+    if (options.json) {
+      console.log(JSON.stringify(note, null, 2));
+      return 0;
+    }
+
     const s = style(useColor());
     const lines = [
       s.bold(note.id) + (note.deleted ? s.red(" (borrada)") : ""),

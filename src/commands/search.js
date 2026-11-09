@@ -15,6 +15,7 @@ export default {
     since: { type: "string" },
     until: { type: "string" },
     limit: { type: "number", default: 20 },
+    json: { type: "boolean" },
   },
   run({ options, args }) {
     const query = args.join(" ").trim();
@@ -35,6 +36,12 @@ export default {
     }
 
     const matches = searchNotes(liveNotes(readEvents()), query, filters);
+
+    if (options.json) {
+      const payload = matches.map((match) => ({ ...match.note, score: Number(match.score.toFixed(3)) }));
+      console.log(JSON.stringify(payload, null, 2));
+      return 0;
+    }
 
     if (matches.length === 0) {
       console.log(`Sin resultados para "${query}".`);

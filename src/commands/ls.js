@@ -16,6 +16,7 @@ export default {
     until: { type: "string" },
     limit: { type: "number", default: 20 },
     reverse: { type: "boolean" },
+    json: { type: "boolean" },
   },
   run({ options }) {
     const notes = liveNotes(readEvents());
@@ -36,6 +37,11 @@ export default {
     }
 
     const result = filterNotes(notes, filters);
+
+    if (options.json) {
+      console.log(JSON.stringify(result, null, 2));
+      return 0;
+    }
 
     if (result.length === 0) {
       console.log("No hay notas para esos filtros.");
