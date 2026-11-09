@@ -32,11 +32,12 @@ function parseMeta(pairs) {
 export default {
   name: "add",
   summary: "Agrega una nota",
-  usage: "nudo add <texto...> [-t etiqueta]... [-m clave=valor]... [--at <cuando>]",
+  usage: "nudo add <texto...> [-t etiqueta]... [-m clave=valor]... [--at <cuando>] [--hashtags]",
   options: {
     tag: { type: "multi", short: "t" },
     meta: { type: "multi", short: "m" },
     at: { type: "string" },
+    hashtags: { type: "boolean" },
   },
   run({ options, args }) {
     let text;
@@ -64,9 +65,13 @@ export default {
       }
     }
 
+    const hashtags = options.hashtags
+      ? [...text.matchAll(/(?:^|\s)#([\p{L}\p{N}][\p{L}\p{N}._-]*)/gu)].map((match) => match[1])
+      : [];
+
     let tags;
     try {
-      tags = normalizeTags(options.tag);
+      tags = normalizeTags([...options.tag, ...hashtags]);
     } catch (error) {
       throw new UsageError(error.message);
     }
