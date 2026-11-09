@@ -42,3 +42,17 @@ test("search falla sin terminos", async () => {
   assert.equal(code, 2);
   assert.match(stderr, /falta el texto/);
 });
+
+test("search --sort date ordena por fecha en vez de relevancia", async () => {
+  const home = tempHome();
+  await nudo(home, ["add", "idea vieja idea", "--at", "2026-01-01"]);
+  await nudo(home, ["add", "idea nueva", "--at", "2026-06-01"]);
+
+  const byDate = await nudo(home, ["search", "idea", "--sort", "date"]);
+  const lines = byDate.stdout.trim().split("\n");
+  assert.match(lines[0], /idea nueva/);
+  assert.match(lines[1], /idea vieja/);
+
+  const bad = await nudo(home, ["search", "idea", "--sort", "color"]);
+  assert.equal(bad.code, 2);
+});

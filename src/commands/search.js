@@ -9,12 +9,13 @@ import { parseWhen } from "../time.js";
 export default {
   name: "search",
   summary: "Busca notas por texto o etiqueta",
-  usage: "nudo search <terminos...> [-t etiqueta]... [--since <cuando>] [--until <cuando>] [--limit N] [--json]",
+  usage: "nudo search <terminos...> [-t etiqueta]... [--since <cuando>] [--until <cuando>] [--limit N] [--sort relevance|date] [--json]",
   options: {
     tag: { type: "multi", short: "t" },
     since: { type: "string" },
     until: { type: "string" },
     limit: { type: "number", default: 20 },
+    sort: { type: "string", default: "relevance" },
     json: { type: "boolean" },
   },
   run({ options, args }) {
@@ -23,8 +24,12 @@ export default {
       throw new UsageError("falta el texto a buscar");
     }
 
+    if (!["relevance", "date"].includes(options.sort)) {
+      throw new UsageError(`--sort debe ser "relevance" o "date"`);
+    }
+
     /** @type {any} */
-    const filters = { tags: options.tag, limit: options.limit };
+    const filters = { tags: options.tag };
 
     for (const key of ["since", "until"]) {
       if (!options[key]) continue;
@@ -35,7 +40,13 @@ export default {
       }
     }
 
-    const matches = searchNotes(liveNotes(readEvents()), query, filters);
+    let matches = searchNotes(liveNotes(readEvents()), query, filters);
+
+    if (options.sort === "date") {
+      matches = [...matches].sort((a, b) => b.note.ts - a.note.ts);
+    }
+
+    matches = matches.slice(0, options.limit);
 
     if (options.json) {
       const payload = matches.map((match) => ({ ...match.note, score: Number(match.score.toFixed(3)) }));
