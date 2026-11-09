@@ -121,3 +121,15 @@ export function liveNotes(events) {
 export function findNote(events, id) {
   return fold(events).find((note) => note.id === id);
 }
+
+/**
+ * Busca notas cuyo id empieza con el prefijo dado.
+ * @param {Note[]} notes
+ * @param {string} prefix
+ * @returns {Note[]}
+ */
+export function resolveId(notes, prefix) {
+  const needle = String(prefix).toUpperCase();
+  if (needle === "") return [];
+  return notes.filter((note) => note.id.startsWith(needle));
+}
