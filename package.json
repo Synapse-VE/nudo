@@ -1,6 +1,6 @@
 {
   "name": "nudo",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Tu memoria externa en la terminal: anota, etiqueta y encuentra.",
   "type": "module",
   "bin": {
