@@ -2,7 +2,7 @@ import { readConfig } from "../config.js";
 import { UsageError } from "../errors.js";
 import { readEvents } from "../log.js";
 import { liveNotes } from "../model.js";
-import { noteList } from "../output.js";
+import { noteList, noteListByDay } from "../output.js";
 import { filterNotes } from "../query.js";
 import { styles } from "../theme.js";
 import { parseWhen } from "../time.js";
@@ -10,13 +10,14 @@ import { parseWhen } from "../time.js";
 export default {
   name: "ls",
   summary: "Lista las notas, de la mas reciente a la mas vieja",
-  usage: "nudo ls [-t etiqueta]... [--since <cuando>] [--until <cuando>] [--limit N] [--reverse] [--json]",
+  usage: "nudo ls [-t etiqueta]... [--since <cuando>] [--until <cuando>] [--limit N] [--reverse] [--group] [--json]",
   options: {
     tag: { type: "multi", short: "t" },
     since: { type: "string" },
     until: { type: "string" },
     limit: { type: "number" },
     reverse: { type: "boolean" },
+    group: { type: "boolean" },
     json: { type: "boolean" },
   },
   run({ options }) {
@@ -49,12 +50,8 @@ export default {
       return 0;
     }
 
-    console.log(
-      noteList(result, {
-        styles: styles(),
-        columns: process.stdout.columns,
-      }),
-    );
+    const options_ = { styles: styles(), columns: process.stdout.columns };
+    console.log(options.group ? noteListByDay(result, options_) : noteList(result, options_));
     return 0;
   },
 };

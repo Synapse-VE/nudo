@@ -40,3 +40,26 @@ export function noteList(notes, options = {}) {
 
   return table(rows);
 }
+
+/**
+ * Dibuja la lista agrupada por dia, con un encabezado por grupo.
+ * @param {object[]} notes
+ * @param {{styles?: Record<string, (t: string) => string>, columns?: number}} [options]
+ * @returns {string}
+ */
+export function noteListByDay(notes, options = {}) {
+  const identity = (text) => text;
+  const styles = options.styles ?? { dim: identity, cyan: identity, bold: identity };
+
+  /** @type {Map<string, object[]>} */
+  const groups = new Map();
+  for (const note of notes) {
+    const day = formatDay(note.ts);
+    if (!groups.has(day)) groups.set(day, []);
+    groups.get(day).push(note);
+  }
+
+  return [...groups.entries()]
+    .map(([day, entries]) => `${styles.bold(day)}\n${noteList(entries, options)}`)
+    .join("\n\n");
+}
