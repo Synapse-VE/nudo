@@ -1,0 +1,4 @@
+node_modules/
+.nudo/
+*.log
+.DS_Store

@@ -1,0 +1,30 @@
+{
+  "name": "nudo",
+  "version": "0.1.0",
+  "description": "Tu memoria externa en la terminal: anota, etiqueta y encuentra.",
+  "type": "module",
+  "bin": {
+    "nudo": "./bin/nudo.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check bin/nudo.js && node --test"
+  },
+  "files": [
+    "bin",
+    "src"
+  ],
+  "keywords": [
+    "cli",
+    "notes",
+    "journal",
+    "terminal",
+    "jsonl",
+    "zero-dependencies"
+  ],
+  "license": "MIT",
+  "author": "Boudicca (https://github.com/Synapse-VE)"
+}
