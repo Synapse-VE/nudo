@@ -8,10 +8,11 @@ import search from "./search.js";
 import stats from "./stats.js";
 import streak from "./streak.js";
 import tag from "./tag.js";
+import restore from "./restore.js";
 import rm from "./rm.js";
 import show from "./show.js";
 import version from "./version.js";
 
-export const builtins = [add, edit, help, ls, rm, search, show, stats, streak, tag, version];
+export const builtins = [add, edit, help, ls, restore, rm, search, show, stats, streak, tag, version];
 
 for (const command of builtins) register(command);
