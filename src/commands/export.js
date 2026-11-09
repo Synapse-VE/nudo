@@ -12,7 +12,7 @@ const FORMATS = ["md", "csv", "json"];
 export default {
   name: "export",
   summary: "Exporta las notas a markdown, csv o json",
-  usage: "nudo export [--format md|csv|json] [--out <archivo>] [-t etiqueta]... [--since <cuando>]",
+  usage: "nudo export [--format md|csv|json] [--out <archivo>] [-t etiqueta]... [--since <cuando>] [--until <cuando>]",
   options: {
     format: { type: "string", default: "md" },
     out: { type: "string" },

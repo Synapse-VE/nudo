@@ -10,7 +10,7 @@ import { parseWhen } from "../time.js";
 export default {
   name: "ls",
   summary: "Lista las notas, de la mas reciente a la mas vieja",
-  usage: "nudo ls [-t etiqueta]... [--since <cuando>] [--until <cuando>] [--limit N] [--reverse]",
+  usage: "nudo ls [-t etiqueta]... [--since <cuando>] [--until <cuando>] [--limit N] [--reverse] [--json]",
   options: {
     tag: { type: "multi", short: "t" },
     since: { type: "string" },
