@@ -4,9 +4,10 @@ import add from "./add.js";
 import help from "./help.js";
 import ls from "./ls.js";
 import search from "./search.js";
+import rm from "./rm.js";
 import show from "./show.js";
 import version from "./version.js";
 
-export const builtins = [add, help, ls, search, show, version];
+export const builtins = [add, help, ls, rm, search, show, version];
 
 for (const command of builtins) register(command);
