@@ -49,7 +49,9 @@ function ensureParent(path) {
 export function readEvents(path = logPath()) {
   if (!existsSync(path)) return [];
 
-  const raw = readFileSync(path, "utf8");
+  let raw = readFileSync(path, "utf8");
+  // Un editor con BOM rompe la primera linea; lo descartamos.
+  if (raw.charCodeAt(0) === 0xfeff) raw = raw.slice(1);
   const events = [];
 
   for (const [index, line] of raw.split("\n").entries()) {

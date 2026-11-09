@@ -70,6 +70,13 @@ test("readEvents senala la linea corrupta", () => {
   assert.throws(() => readEvents(path), /linea 2 corrupta/);
 });
 
+test("readEvents tolera BOM, CRLF y una ultima linea sin salto", () => {
+  const path = join(tempDir(), "log.jsonl");
+  writeFileSync(path, '\uFEFF{"id":"A"}\r\n{"id":"B"}');
+
+  assert.deepEqual(readEvents(path).map((event) => event.id), ["A", "B"]);
+});
+
 test("rewriteEvents reemplaza el contenido", () => {
   const path = join(tempDir(), "log.jsonl");
   appendEvent({ id: "A" }, path);
