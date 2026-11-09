@@ -80,3 +80,37 @@ export function summary(notes) {
     tags: tags.size,
   };
 }
+
+/**
+ * Calcula la racha actual y la mas larga de dias consecutivos con notas.
+ * @param {object[]} notes
+ * @param {number} [now]
+ * @returns {{current: number, longest: number, last: string | null}}
+ */
+export function streaks(notes, now = Date.now()) {
+  const days = [...countByDay(notes).keys()].sort();
+
+  if (days.length === 0) {
+    return { current: 0, longest: 0, last: null };
+  }
+
+  let longest = 1;
+  let run = 1;
+  for (let i = 1; i < days.length; i += 1) {
+    const previous = Date.parse(`${days[i - 1]}T00:00:00`);
+    const current = Date.parse(`${days[i]}T00:00:00`);
+    run = current - previous === DAY ? run + 1 : 1;
+    longest = Math.max(longest, run);
+  }
+
+  const present = new Set(days);
+  let cursor = present.has(formatDay(now)) ? now : now - DAY;
+  let current = 0;
+
+  while (present.has(formatDay(cursor))) {
+    current += 1;
+    cursor -= DAY;
+  }
+
+  return { current, longest, last: days[days.length - 1] };
+}
