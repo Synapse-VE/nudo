@@ -9,7 +9,7 @@ import { parseWhen } from "../time.js";
 export default {
   name: "search",
   summary: "Busca notas por texto o etiqueta",
-  usage: "nudo search <terminos...> [-t etiqueta]... [--since <cuando>] [--limit N]",
+  usage: "nudo search <terminos...> [-t etiqueta]... [--since <cuando>] [--until <cuando>] [--limit N] [--json]",
   options: {
     tag: { type: "multi", short: "t" },
     since: { type: "string" },
