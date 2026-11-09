@@ -1,6 +1,6 @@
 import { readEvents } from "../log.js";
 import { fold, resolveId } from "../model.js";
-import { style, useColor } from "../render.js";
+import { styles } from "../theme.js";
 
 function label(note) {
   const text = note.text.replace(/\s+/g, " ");
@@ -47,7 +47,7 @@ export default {
       return 0;
     }
 
-    const s = style(useColor());
+    const s = styles();
 
     if (!args[0]) {
       const edges = notes.flatMap((note) =>

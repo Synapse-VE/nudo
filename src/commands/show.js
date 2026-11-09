@@ -1,6 +1,6 @@
 import { readEvents } from "../log.js";
 import { fold, resolveId } from "../model.js";
-import { style, useColor } from "../render.js";
+import { styles } from "../theme.js";
 import { formatClock, formatDay, relative } from "../time.js";
 
 export default {
@@ -34,7 +34,7 @@ export default {
       return 0;
     }
 
-    const s = style(useColor());
+    const s = styles();
     const lines = [
       s.bold(note.id) + (note.deleted ? s.red(" (borrada)") : ""),
       `${formatDay(note.ts)} ${formatClock(note.ts)}  ${s.dim(`(${relative(note.ts)})`)}`,

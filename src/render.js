@@ -18,7 +18,9 @@ const CODES = {
  * @param {{isTTY?: boolean}} [stream]
  * @returns {boolean}
  */
-export function useColor(env = process.env, stream = process.stdout) {
+export function useColor(env = process.env, stream = process.stdout, mode = "auto") {
+  if (mode === "never") return false;
+  if (mode === "always") return true;
   if (env.NO_COLOR !== undefined && env.NO_COLOR !== "") return false;
   if (env.FORCE_COLOR !== undefined && env.FORCE_COLOR !== "" && env.FORCE_COLOR !== "0") return true;
   return Boolean(stream?.isTTY);

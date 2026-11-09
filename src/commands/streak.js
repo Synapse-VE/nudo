@@ -1,6 +1,6 @@
 import { readEvents } from "../log.js";
 import { fold } from "../model.js";
-import { style, useColor } from "../render.js";
+import { styles } from "../theme.js";
 import { streaks } from "../stats.js";
 
 export default {
@@ -24,7 +24,7 @@ export default {
       return 0;
     }
 
-    const s = style(useColor());
+    const s = styles();
     console.log(`Racha actual: ${s.bold(String(result.current))} ${result.current === 1 ? "dia" : "dias"}`);
     console.log(`Racha maxima: ${s.bold(String(result.longest))} ${result.longest === 1 ? "dia" : "dias"}`);
     console.log(s.dim(`Ultima nota: ${result.last}`));

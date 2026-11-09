@@ -3,7 +3,7 @@ import { readEvents } from "../log.js";
 import { liveNotes } from "../model.js";
 import { noteList } from "../output.js";
 import { searchNotes } from "../query.js";
-import { style, useColor } from "../render.js";
+import { styles } from "../theme.js";
 import { parseWhen } from "../time.js";
 
 export default {
@@ -51,7 +51,7 @@ export default {
     console.log(
       noteList(
         matches.map((match) => match.note),
-        { styles: style(useColor()), columns: process.stdout.columns },
+        { styles: styles(), columns: process.stdout.columns },
       ),
     );
     return 0;
