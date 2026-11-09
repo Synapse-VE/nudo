@@ -2,6 +2,7 @@ import { register } from "../registry.js";
 
 import add from "./add.js";
 import edit from "./edit.js";
+import completion from "./completion.js";
 import config from "./config.js";
 import exportCommand from "./export.js";
 import graph from "./graph.js";
@@ -18,6 +19,6 @@ import rm from "./rm.js";
 import show from "./show.js";
 import version from "./version.js";
 
-export const builtins = [add, config, edit, exportCommand, graph, help, importCommand, link, ls, restore, rm, search, show, stats, streak, tag, version];
+export const builtins = [add, completion, config, edit, exportCommand, graph, help, importCommand, link, ls, restore, rm, search, show, stats, streak, tag, version];
 
 for (const command of builtins) register(command);
